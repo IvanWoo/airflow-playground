@@ -1,0 +1,7 @@
+---
+auth:
+  # put your more serious password here
+  # rootPassword: root
+  username: airflow
+  password: airflow
+  database: airflow
