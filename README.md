@@ -44,8 +44,8 @@ kubectl run airflow-initdb \
     --restart=Never -ti --rm --image-pull-policy=Never \
     --image=my/airflow \
     --env AIRFLOW__CORE__LOAD_EXAMPLES=False \
-    --env AIRFLOW__CORE__SQL_ALCHEMY_CONN=mysql://airflow:airflow@af-mysql.airflow/airflow \
-    --command -- airflow initdb
+    --env AIRFLOW__CORE__SQL_ALCHEMY_CONN=mysql+pymysql://airflow:airflow@af-mysql.airflow/airflow \
+    --command -- airflow db init
 ```
 
 verify the database is initialized
@@ -65,7 +65,6 @@ ab_user
 ab_user_role
 ab_view_menu
 alembic_version
-chart
 connection
 dag
 dag_code
@@ -74,21 +73,30 @@ dag_run
 dag_tag
 import_error
 job
-known_event
-known_event_type
-kube_resource_version
-kube_worker_uuid
 log
 rendered_task_instance_fields
+sensor_instance
 serialized_dag
+session
 sla_miss
 slot_pool
 task_fail
 task_instance
 task_reschedule
-users
+trigger
 variable
 xcom
+```
+
+create user
+
+```sh
+kubectl run airflow-create-user \
+    --restart=Never -ti --rm --image-pull-policy=Never \
+    --image=my/airflow \
+    --env AIRFLOW__CORE__LOAD_EXAMPLES=False \
+    --env AIRFLOW__CORE__SQL_ALCHEMY_CONN=mysql+pymysql://airflow:airflow@af-mysql.airflow/airflow \
+    --command -- airflow users create --role Admin --username admin --email admin --firstname admin --lastname admin --password admin
 ```
 
 ### start airflow
@@ -106,11 +114,8 @@ kubectl run airflow -n airflow -ti --rm --restart=Never --image=my/airflow --ove
       "tty": true,
       "env": [
         {"name":"AIRFLOW__CORE__LOAD_EXAMPLES","value":"False"},
-        {"name":"AIRFLOW__CORE__SQL_ALCHEMY_CONN","value":"mysql://airflow:airflow@af-mysql.airflow/airflow"}, 
+        {"name":"AIRFLOW__CORE__SQL_ALCHEMY_CONN","value":"mysql+pymysql://airflow:airflow@af-mysql.airflow/airflow"}, 
         {"name":"AIRFLOW__CORE__EXECUTOR","value":"LocalExecutor"},
-        {"name":"AIRFLOW__KUBERNETES__WORKER_CONTAINER_REPOSITORY","value":"my/airflow"},
-        {"name":"AIRFLOW__KUBERNETES__WORKER_CONTAINER_TAG","value":"latest"},
-        {"name":"AIRFLOW__KUBERNETES__DAGS_VOLUME_HOST","value":"'$PWD/dags'"},
         {"name":"AIRFLOW_CONN_CLICKHOUSE_TEST","value":"clickhouse://analytics:admin@clickhouse-repl-05.chns:9000/test"}
       ],
       "volumeMounts": [{"mountPath": "/var/lib/airflow/dags","name": "store"}]
@@ -123,12 +128,8 @@ kubectl run airflow -n airflow -ti --rm --restart=Never --image=my/airflow --ove
       "tty": true,
       "env": [
         {"name":"AIRFLOW__CORE__LOAD_EXAMPLES","value":"False"},
-        {"name":"AIRFLOW__CORE__SQL_ALCHEMY_CONN","value":"mysql://airflow:airflow@af-mysql.airflow/airflow"}, 
+        {"name":"AIRFLOW__CORE__SQL_ALCHEMY_CONN","value":"mysql+pymysql://airflow:airflow@af-mysql.airflow/airflow"}, 
         {"name":"AIRFLOW__CORE__EXECUTOR","value":"LocalExecutor"},
-        {"name":"AIRFLOW__KUBERNETES__WORKER_CONTAINER_REPOSITORY","value":"my/airflow"},
-        {"name":"AIRFLOW__KUBERNETES__WORKER_CONTAINER_TAG","value":"latest"},
-        {"name":"AIRFLOW__KUBERNETES__DAGS_VOLUME_HOST","value":"'$PWD/dags'"},
-        {"name":"AIRFLOW__KUBERNETES__KUBE_CLIENT_REQUEST_ARGS","value":""},
         {"name":"AIRFLOW_CONN_CLICKHOUSE_TEST","value":"clickhouse://analytics:admin@clickhouse-repl-05.chns:9000/test"}
       ],
       "volumeMounts": [{"mountPath": "/var/lib/airflow/dags","name": "store"}]
@@ -161,6 +162,8 @@ kubectl delete namespace airflow
 
 ## gotcha
 
+### airflow-clickhouse-plugin
+
 airflow `1.10.14` is not compatible with `airflow-clickhouse-plugin==0.5.7.post1`
 
 get the below error when starting the server
@@ -172,3 +175,5 @@ Traceback (most recent call last):
     plugin_obj.__usable_import_name = entry_point.module
 AttributeError: 'EntryPoint' object has no attribute 'module'
 ```
+
+airflow `2.3.0` works with `airflow-clickhouse-plugin==0.8.1`

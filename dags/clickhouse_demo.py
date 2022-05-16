@@ -1,7 +1,7 @@
 from airflow import DAG
 from airflow_clickhouse_plugin.operators.clickhouse_operator import ClickHouseOperator
 from airflow.operators.python_operator import PythonOperator
-from airflow.utils.dates import days_ago
+from datetime import datetime
 
 default_args = {
     "start_date": datetime(2015, 6, 1),
@@ -12,6 +12,7 @@ default_args = {
 
 with DAG(
     dag_id="clickhouse_demo",
+    default_args=default_args,
     schedule_interval=None,
     catchup=False,
 ) as dag:
@@ -27,11 +28,11 @@ with DAG(
         clickhouse_conn_id="clickhouse_test",
     )
     t2 = PythonOperator(
-        task_id="print_month_income",
+        task_id="print_sales_distributed",
         provide_context=True,
         python_callable=lambda task_instance, **_:
         # pulling XCom value and printing it
-        print(task_instance.xcom_pull(task_ids="get_count_sales")),
+        print(task_instance.xcom_pull(task_ids="sales_distributed")),
     )
 
     t1 >> t2

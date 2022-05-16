@@ -12,7 +12,7 @@ default_args = {
 with DAG(
     "foobar", default_args=default_args, schedule_interval=None, catchup=False
 ) as dag:
-    t1 = BashOperator(task_id="foo", bash_command="echo foo", xcom_push=True)
+    t1 = BashOperator(task_id="foo", bash_command="echo foo", do_xcom_push=True)
     t2 = BashOperator(task_id="bar", bash_command="echo bar")
 
     t1 >> t2
