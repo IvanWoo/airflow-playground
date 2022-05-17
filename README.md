@@ -16,6 +16,7 @@ In this repo, we are using the [Kubernetes](https://kubernetes.io/) to deploy th
 - [cleanup](#cleanup)
 - [gotcha](#gotcha)
   - [airflow-clickhouse-plugin](#airflow-clickhouse-plugin)
+- [references](#references)
 
 ## prerequisites
 - [Rancher Desktop](https://github.com/rancher-sandbox/rancher-desktop): `1.3.0`
@@ -211,3 +212,7 @@ AttributeError: 'EntryPoint' object has no attribute 'module'
 ```
 
 airflow `2.3.0` works with `airflow-clickhouse-plugin==0.8.1`
+
+## references
+
+- [stwind/airflow-on-kubernetes](https://github.com/stwind/airflow-on-kubernetes): Bare Minimal Airflow On Kubernetes
