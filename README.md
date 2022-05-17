@@ -1,12 +1,40 @@
+# airflow-playground <!-- omit in toc -->
+
+[Apache Airflow](https://airflow.apache.org) is an open-source workflow management platform for data engineering pipelines.
+
+In this repo, we are using the [Kubernetes](https://kubernetes.io/) to deploy the Airflow service and other systems.
+
+- [prerequisites](#prerequisites)
+- [preparation](#preparation)
+- [setup](#setup)
+  - [namespace](#namespace)
+  - [mysql](#mysql)
+- [start airflow](#start-airflow)
+  - [initialize database](#initialize-database)
+  - [create user](#create-user)
+  - [start server](#start-server)
+- [cleanup](#cleanup)
+- [gotcha](#gotcha)
+  - [airflow-clickhouse-plugin](#airflow-clickhouse-plugin)
+
+## prerequisites
+- [Rancher Desktop](https://github.com/rancher-sandbox/rancher-desktop): `1.3.0`
+- Kubernetes: `v1.22.6`
+- kubectl `v1.23.3`
+- Helm: `v3.8.2`
+
+
 ## preparation
 
 build the docker image [with proper namespace](https://github.com/rancher-sandbox/rancher-desktop/issues/952#issuecomment-1049434115)
 
 ```sh
-docker --namespace=k8s.io build -t my/airflow -f Dockerfile . 
+docker --namespace=k8s.io build -t my/airflow -f Dockerfile .
 ```
 
 ## setup
+
+tl;dr: `bash scripts/up.sh`
 
 ### namespace
 ```sh
@@ -31,13 +59,17 @@ verify the mysql is running
 kubectl exec af-mysql-0 -n airflow -- mysql -uairflow -pairflow -e "SHOW DATABASES"
 ```
 
-```sh
+```
 Database
 airflow
 information_schema
 ```
 
-initialize database
+## start airflow
+
+tl;dr: `bash scripts/run.sh`
+
+### initialize database
 
 ```sh
 kubectl run airflow-initdb \
@@ -54,7 +86,7 @@ verify the database is initialized
 kubectl exec af-mysql-0 -n airflow -- mysql -uairflow -pairflow -e "SHOW TABLES IN airflow"
 ```
 
-```sh
+```
 Tables_in_airflow
 ab_permission
 ab_permission_view
@@ -88,7 +120,7 @@ variable
 xcom
 ```
 
-create user
+### create user
 
 ```sh
 kubectl run airflow-create-user \
@@ -99,7 +131,7 @@ kubectl run airflow-create-user \
     --command -- airflow users create --role Admin --username admin --email admin --firstname admin --lastname admin --password admin
 ```
 
-### start airflow
+### start server
 
 ```sh
 kubectl run airflow -n airflow -ti --rm --restart=Never --image=my/airflow --overrides='
@@ -153,8 +185,10 @@ kubectl port-forward airflow -n airflow 8080
 
 ## cleanup
 
+tl;dr: `bash scripts/down.sh`
+
 ```sh
-kubectl delete po airflow -n airflow
+kubectl delete po --all -n airflow
 helm uninstall af-mysql -n airflow
 kubectl delete pvc --all -n airflow
 kubectl delete namespace airflow
@@ -168,7 +202,7 @@ airflow `1.10.14` is not compatible with `airflow-clickhouse-plugin==0.5.7.post1
 
 get the below error when starting the server
 
-```sh
+```
 ERROR - Failed to import plugin airflow_clickhouse_hook
 Traceback (most recent call last):
   File "/usr/local/lib/python3.8/site-packages/airflow/plugins_manager.py", line 150, in load_entrypoint_plugins
