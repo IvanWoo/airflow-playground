@@ -1,7 +1,7 @@
-ARG PYTHON_VERSION=3.8.5
+ARG PYTHON_VERSION=3.10.4
 FROM python:$PYTHON_VERSION-slim
 
-ARG AIRFLOW_VERSION=2.3.0
+ARG AIRFLOW_VERSION=2.3.1
 ARG AIRFLOW_USER_HOME=/var/lib/airflow
 ARG AIRFLOW_USER="airflow"
 ARG AIRFLOW_UID="1000"
@@ -19,12 +19,12 @@ RUN mkdir $AIRFLOW_USER_HOME && \
     apt-get update && \
     apt-get install -yqq --no-install-recommends $buildDeps build-essential default-libmysqlclient-dev && \
     pip install --upgrade pip && \
-    pip install apache-airflow[crypto,kubernetes,mysql]==$AIRFLOW_VERSION --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-$AIRFLOW_VERSION/constraints-3.8.txt" && \
+    pip install apache-airflow[crypto,kubernetes,mysql]==$AIRFLOW_VERSION && \
     pip install --no-cache-dir -r requirements.txt && \
     apt-get purge --auto-remove -yqq $buildDeps && \
     apt-get autoremove -yqq --purge && \
     rm -rf /var/lib/apt/lists/*
 
-USER $AIRFLOW_UID
+USER $AIRFLOW_USER
 
 WORKDIR $AIRFLOW_USER_HOME
