@@ -29,5 +29,7 @@ verify_ssl = true
 [tool.pdm.dev-dependencies]
 dev = [
     "black>=22.6.0",
+    "pytest>=7.1.2",
 ]
 [tool.pdm.scripts]
+test = "./scripts/test-run.sh"

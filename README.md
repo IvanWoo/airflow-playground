@@ -6,6 +6,7 @@ In this repo, we are using the [Kubernetes](https://kubernetes.io/) to deploy th
 
 - [prerequisites](#prerequisites)
 - [local development](#local-development)
+  - [dag integration tests](#dag-integration-tests)
 - [preparation](#preparation)
 - [setup](#setup)
   - [namespace](#namespace)
@@ -30,6 +31,12 @@ In this repo, we are using the [Kubernetes](https://kubernetes.io/) to deploy th
 
 ```sh
 pdm install
+```
+
+### dag integration tests
+
+```sh
+pdm run test
 ```
 
 ## preparation

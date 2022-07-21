@@ -1,6 +1,10 @@
 __pycache__
+.pytest_cache
 
 # pdm
 .pdm.toml
 __pypackages__/
 .venv/
+
+tmp/
+.DS_Store

@@ -1,6 +1,6 @@
 from airflow import DAG
 from airflow_clickhouse_plugin.operators.clickhouse_operator import ClickHouseOperator
-from airflow.operators.python_operator import PythonOperator
+from airflow.operators.python import PythonOperator
 from datetime import datetime
 
 default_args = {
