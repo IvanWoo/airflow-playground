@@ -5,6 +5,7 @@
 In this repo, we are using the [Kubernetes](https://kubernetes.io/) to deploy the Airflow service and other systems.
 
 - [prerequisites](#prerequisites)
+- [local development](#local-development)
 - [preparation](#preparation)
 - [setup](#setup)
   - [namespace](#namespace)
@@ -19,18 +20,24 @@ In this repo, we are using the [Kubernetes](https://kubernetes.io/) to deploy th
 - [references](#references)
 
 ## prerequisites
-- [Rancher Desktop](https://github.com/rancher-sandbox/rancher-desktop): `1.3.0`
+- [Rancher Desktop](https://github.com/rancher-sandbox/rancher-desktop): `1.4.1`
 - Kubernetes: `v1.22.6`
 - kubectl `v1.23.3`
 - Helm: `v3.8.2`
+- [pdm](https://github.com/pdm-project/pdm): `2.0.2`
 
+## local development
+
+```sh
+pdm install
+```
 
 ## preparation
 
 build the docker image [with proper namespace](https://github.com/rancher-sandbox/rancher-desktop/issues/952#issuecomment-1049434115)
 
 ```sh
-docker --namespace=k8s.io build -t my/airflow -f Dockerfile .
+nerdctl --namespace=k8s.io build -t my/airflow -f Dockerfile .
 ```
 
 ## setup
