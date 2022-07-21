@@ -16,6 +16,10 @@ def assert_dag_dict_equal(source, dag):
         assert task.downstream_task_ids == set(downstream_list)
 
 
+def test_dagbag(dagbag):
+    assert dagbag.import_errors == {}
+
+
 @pytest.mark.parametrize(
     "dag_id",
     [
@@ -25,7 +29,6 @@ def assert_dag_dict_equal(source, dag):
 )
 def test_dag_loaded(dagbag, dag_id):
     dag = dagbag.get_dag(dag_id=dag_id)
-    assert dagbag.import_errors == {}
     assert dag is not None
 
 
