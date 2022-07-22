@@ -33,5 +33,5 @@ dev = [
     "pytest>=7.1.2",
 ]
 [tool.pdm.scripts]
-test = "./scripts/test-run.sh"
+test = "pytest -v tests"
 freeze = "./scripts/freeze.sh"
