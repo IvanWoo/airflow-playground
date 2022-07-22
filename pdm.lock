@@ -1118,7 +1118,7 @@ dependencies = [
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:3a81972d8ad7cfa4ecbf1200493e9c3ebfacceb9665970a7ed9e419650e365ba"
+content_hash = "sha256:1368907dae37fde00bfa59df17a23fec3a71fb0afb7fcefcdfeef34bf258cedd"
 
 [metadata.files]
 "airflow-clickhouse-plugin 0.8.1" = [

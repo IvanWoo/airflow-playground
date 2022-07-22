@@ -1,0 +1,7 @@
+---
+api_version: "1.0"
+metadata:
+  dag_id: "1"
+  owner: dummy
+  retries: 1
+  cron: null
