@@ -33,3 +33,4 @@ dev = [
 ]
 [tool.pdm.scripts]
 test = "./scripts/test-run.sh"
+freeze = "./scripts/freeze.sh"
