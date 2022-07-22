@@ -4,7 +4,7 @@ from airflow import DAG
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import PythonOperator
 
-from my_generator.io import all_pipeline_configs
+from my_generator.io import get_all_pipeline_configs
 
 
 def create_dag(dag_id, default_args, schedule_interval):
@@ -25,7 +25,7 @@ def create_dag(dag_id, default_args, schedule_interval):
     return dag
 
 
-for config in all_pipeline_configs():
+for config in get_all_pipeline_configs():
     metadata = config["metadata"]
     default_args = {
         "owner": metadata["owner"],
