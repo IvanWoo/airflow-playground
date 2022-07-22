@@ -232,3 +232,4 @@ airflow `2.3.0` works with `airflow-clickhouse-plugin==0.8.1`
 ## references
 
 - [stwind/airflow-on-kubernetes](https://github.com/stwind/airflow-on-kubernetes): Bare Minimal Airflow On Kubernetes
+- [astronomer/airflow-testing-skeleton](https://github.com/astronomer/airflow-testing-skeleton)
