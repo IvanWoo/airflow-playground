@@ -18,9 +18,7 @@ def get_all_pipeline_configs():
 
 
 def get_all_dag_ids():
-    return [
-        config["metadata"]["dag_id"].strip() for config in get_all_pipeline_configs()
-    ]
+    return [config["metadata"]["dag_id"] for config in get_all_pipeline_configs()]
 
 
 if __name__ == "__main__":

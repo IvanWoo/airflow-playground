@@ -44,6 +44,10 @@ def test_generated_dag_loaded(dagbag, all_generated_dag_ids):
         assert dag is not None, f"DAG {dag_id} not loaded"
 
 
+def test_no_duplicate_dag_ids(all_generated_dag_ids):
+    assert len(set(all_generated_dag_ids)) == len(all_generated_dag_ids)
+
+
 @pytest.mark.parametrize(
     "dag_id, expected_task_dict",
     [
