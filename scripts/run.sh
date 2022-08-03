@@ -32,7 +32,7 @@ kubectl run airflow -n airflow -ti --rm --restart=Never --image=my/airflow --ove
       "tty": true,
       "env": [
         {"name":"AIRFLOW__CORE__LOAD_EXAMPLES","value":"False"},
-        {"name":"AIRFLOW__CORE__SQL_ALCHEMY_CONN","value":"mysql+pymysql://airflow:airflow@af-mysql.airflow/airflow"}, 
+        {"name":"AIRFLOW__CORE__SQL_ALCHEMY_CONN","value":"mysql+pymysql://airflow:airflow@af-mysql.airflow/airflow"},
         {"name":"AIRFLOW__CORE__EXECUTOR","value":"LocalExecutor"},
         {"name":"AIRFLOW__WEBSERVER__SECRET_KEY","value":"airflow-playground"},
         {"name":"AIRFLOW_CONN_CLICKHOUSE_TEST","value":"clickhouse://analytics:admin@clickhouse-repl-05.chns:9000/test"}
@@ -47,7 +47,7 @@ kubectl run airflow -n airflow -ti --rm --restart=Never --image=my/airflow --ove
       "tty": true,
       "env": [
         {"name":"AIRFLOW__CORE__LOAD_EXAMPLES","value":"False"},
-        {"name":"AIRFLOW__CORE__SQL_ALCHEMY_CONN","value":"mysql+pymysql://airflow:airflow@af-mysql.airflow/airflow"}, 
+        {"name":"AIRFLOW__CORE__SQL_ALCHEMY_CONN","value":"mysql+pymysql://airflow:airflow@af-mysql.airflow/airflow"},
         {"name":"AIRFLOW__CORE__EXECUTOR","value":"LocalExecutor"},
         {"name":"AIRFLOW__WEBSERVER__SECRET_KEY","value":"airflow-playground"},
         {"name":"AIRFLOW_CONN_CLICKHOUSE_TEST","value":"clickhouse://analytics:admin@clickhouse-repl-05.chns:9000/test"}

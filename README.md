@@ -21,11 +21,12 @@ In this repo, we are using the [Kubernetes](https://kubernetes.io/) to deploy th
 - [references](#references)
 
 ## prerequisites
+
 - [Rancher Desktop](https://github.com/rancher-sandbox/rancher-desktop): `1.4.1`
-- Kubernetes: `v1.22.6`
+- Kubernetes: `v1.22.22`
 - kubectl `v1.23.3`
-- Helm: `v3.8.2`
-- [pdm](https://github.com/pdm-project/pdm): `2.0.2`
+- Helm: `v3.9.0`
+- [pdm](https://github.com/pdm-project/pdm): `2.1.0`
 
 ## local development
 
@@ -52,6 +53,7 @@ nerdctl --namespace=k8s.io build -t my/airflow -f Dockerfile .
 tl;dr: `bash scripts/up.sh`
 
 ### namespace
+
 ```sh
 kubectl create namespace airflow --dry-run=client -o yaml | kubectl apply -f -
 ```
@@ -161,7 +163,7 @@ kubectl run airflow -n airflow -ti --rm --restart=Never --image=my/airflow --ove
       "tty": true,
       "env": [
         {"name":"AIRFLOW__CORE__LOAD_EXAMPLES","value":"False"},
-        {"name":"AIRFLOW__CORE__SQL_ALCHEMY_CONN","value":"mysql+pymysql://airflow:airflow@af-mysql.airflow/airflow"}, 
+        {"name":"AIRFLOW__CORE__SQL_ALCHEMY_CONN","value":"mysql+pymysql://airflow:airflow@af-mysql.airflow/airflow"},
         {"name":"AIRFLOW__CORE__EXECUTOR","value":"LocalExecutor"},
         {"name":"AIRFLOW__WEBSERVER__SECRET_KEY","value":"airflow-playground"},
         {"name":"AIRFLOW_CONN_CLICKHOUSE_TEST","value":"clickhouse://analytics:admin@clickhouse-repl-05.chns:9000/test"}
@@ -176,7 +178,7 @@ kubectl run airflow -n airflow -ti --rm --restart=Never --image=my/airflow --ove
       "tty": true,
       "env": [
         {"name":"AIRFLOW__CORE__LOAD_EXAMPLES","value":"False"},
-        {"name":"AIRFLOW__CORE__SQL_ALCHEMY_CONN","value":"mysql+pymysql://airflow:airflow@af-mysql.airflow/airflow"}, 
+        {"name":"AIRFLOW__CORE__SQL_ALCHEMY_CONN","value":"mysql+pymysql://airflow:airflow@af-mysql.airflow/airflow"},
         {"name":"AIRFLOW__CORE__EXECUTOR","value":"LocalExecutor"},
         {"name":"AIRFLOW__WEBSERVER__SECRET_KEY","value":"airflow-playground"},
         {"name":"AIRFLOW_CONN_CLICKHOUSE_TEST","value":"clickhouse://analytics:admin@clickhouse-repl-05.chns:9000/test"}
