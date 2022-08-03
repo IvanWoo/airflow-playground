@@ -4,4 +4,4 @@ metadata:
   dag_id: "1"
   owner: dummy
   retries: 1
-  cron: null
+  cron: "0 0 * * 0"
