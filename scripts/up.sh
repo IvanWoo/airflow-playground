@@ -6,6 +6,7 @@ REPO_DIR="${BASE_DIR}/.."
 (
 cd ${REPO_DIR}
 kubectl create namespace airflow --dry-run=client -o yaml | kubectl apply -f -
+kubectl apply -f airflow/rbac.yaml -n airflow
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm upgrade --install af-mysql bitnami/mysql -n airflow -f mysql/values.yaml
 )

@@ -8,5 +8,6 @@ cd ${REPO_DIR}
 helm uninstall af-mysql -n airflow
 kubectl delete po --all -n airflow
 kubectl delete pvc --all -n airflow
+kubectl delete -f airflow/rbac.yaml -n airflow
 kubectl delete namespace airflow
 )

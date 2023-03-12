@@ -23,6 +23,7 @@ kubectl run airflow-create-user \
 kubectl run airflow -n airflow -ti --rm --restart=Never --image=my/airflow --overrides='
 {
   "spec": {
+    "serviceAccountName": "airflow",
     "containers":[{
       "name": "webserver",
       "image": "my/airflow",

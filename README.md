@@ -12,6 +12,7 @@ In this repo, we are using the [Kubernetes](https://kubernetes.io/) to deploy th
   - [namespace](#namespace)
   - [mysql](#mysql)
 - [start airflow](#start-airflow)
+  - [create the service account](#create-the-service-account)
   - [initialize database](#initialize-database)
   - [create user](#create-user)
   - [start server](#start-server)
@@ -86,6 +87,12 @@ information_schema
 
 tl;dr: `bash scripts/run.sh`
 
+### create the service account
+
+```sh
+kubectl apply -f airflow/rbac.yaml -n airflow
+```
+
 ### initialize database
 
 ```sh
@@ -154,6 +161,7 @@ kubectl run airflow-create-user \
 kubectl run airflow -n airflow -ti --rm --restart=Never --image=my/airflow --overrides='
 {
   "spec": {
+    "serviceAccountName": "airflow",
     "containers":[{
       "name": "webserver",
       "image": "my/airflow",
@@ -210,6 +218,7 @@ tl;dr: `bash scripts/down.sh`
 kubectl delete po --all -n airflow
 helm uninstall af-mysql -n airflow
 kubectl delete pvc --all -n airflow
+kubectl delete -f airflow/rbac.yaml -n airflow
 kubectl delete namespace airflow
 ```
 
