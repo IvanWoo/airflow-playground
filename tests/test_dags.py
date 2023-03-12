@@ -55,7 +55,8 @@ def test_no_duplicate_dag_ids(all_generated_dag_ids):
             "foobar",
             {
                 "foo": ["bar"],
-                "bar": [],
+                "bar": ["pod_foo"],
+                "pod_foo": [],
             },
         ),
         (
