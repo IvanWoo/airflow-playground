@@ -17,8 +17,6 @@ In this repo, we are using the [Kubernetes](https://kubernetes.io/) to deploy th
   - [create user](#create-user)
   - [start server](#start-server)
 - [cleanup](#cleanup)
-- [gotcha](#gotcha)
-  - [airflow-clickhouse-plugin](#airflow-clickhouse-plugin)
 - [references](#references)
 
 ## prerequisites
@@ -221,24 +219,6 @@ kubectl delete pvc --all -n airflow
 kubectl delete -f airflow/rbac.yaml -n airflow
 kubectl delete namespace airflow
 ```
-
-## gotcha
-
-### airflow-clickhouse-plugin
-
-airflow `1.10.14` is not compatible with `airflow-clickhouse-plugin==0.5.7.post1`
-
-get the below error when starting the server
-
-```
-ERROR - Failed to import plugin airflow_clickhouse_hook
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.8/site-packages/airflow/plugins_manager.py", line 150, in load_entrypoint_plugins
-    plugin_obj.__usable_import_name = entry_point.module
-AttributeError: 'EntryPoint' object has no attribute 'module'
-```
-
-airflow `2.3.0` works with `airflow-clickhouse-plugin==0.8.1`
 
 ## references
 
