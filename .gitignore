@@ -2,7 +2,7 @@ __pycache__
 .pytest_cache
 
 # pdm
-.pdm.toml
+.pdm-python
 __pypackages__/
 .venv/
 
