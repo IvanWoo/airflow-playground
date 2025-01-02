@@ -21,11 +21,11 @@ In this repo, we are using the [Kubernetes](https://kubernetes.io/) to deploy th
 
 ## prerequisites
 
-- [Rancher Desktop](https://github.com/rancher-sandbox/rancher-desktop): `1.4.1`
-- Kubernetes: `v1.22.22`
-- kubectl `v1.23.3`
-- Helm: `v3.9.0`
-- [pdm](https://github.com/pdm-project/pdm): `2.1.0`
+- [Rancher Desktop](https://github.com/rancher-sandbox/rancher-desktop): `1.9.1`
+- Kubernetes: `v1.26.15`
+- kubectl `v1.26.0`
+- Helm: `v3.12.1`
+- [pdm](https://github.com/pdm-project/pdm): `2.22.1`
 
 ## local development
 
@@ -49,7 +49,7 @@ nerdctl --namespace=k8s.io build -t my/airflow -f Dockerfile .
 
 ## setup
 
-tl;dr: `bash scripts/up.sh`
+tl;dr: `./scripts/up.sh`
 
 ### namespace
 
@@ -83,7 +83,7 @@ information_schema
 
 ## start airflow
 
-tl;dr: `bash scripts/run.sh`
+tl;dr: `./scripts/run.sh`
 
 ### create the service account
 
@@ -119,23 +119,35 @@ ab_user
 ab_user_role
 ab_view_menu
 alembic_version
+callback_request
 connection
 dag
 dag_code
+dag_owner_attributes
 dag_pickle
 dag_run
+dag_run_note
+dag_schedule_dataset_reference
 dag_tag
+dag_warning
+dagrun_dataset_event
+dataset
+dataset_dag_run_queue
+dataset_event
 import_error
 job
 log
+log_template
 rendered_task_instance_fields
-sensor_instance
 serialized_dag
 session
 sla_miss
 slot_pool
 task_fail
 task_instance
+task_instance_note
+task_map
+task_outlet_dataset_reference
 task_reschedule
 trigger
 variable
@@ -202,7 +214,7 @@ verify by checking the dags
 kubectl exec -ti airflow -n airflow -c webserver -- airflow dags list
 ```
 
-view the webserver portal
+view the [webserver portal](http://localhost:8080/)
 
 ```sh
 kubectl port-forward airflow -n airflow 8080
@@ -210,7 +222,7 @@ kubectl port-forward airflow -n airflow 8080
 
 ## cleanup
 
-tl;dr: `bash scripts/down.sh`
+tl;dr: `./scripts/down.sh`
 
 ```sh
 kubectl delete po --all -n airflow
