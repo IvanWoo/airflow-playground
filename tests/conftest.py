@@ -20,7 +20,7 @@ def reset_db():
     yield
 
     # cleanup temp files generated during tests
-    files = ["unittests.cfg", "unittests.db", "webserver_config.py"]
+    files = ["airflow.db"]
     for file in files:
         os.remove(ROOT_DIR / file)
 

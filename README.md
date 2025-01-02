@@ -6,6 +6,7 @@ In this repo, we are using the [Kubernetes](https://kubernetes.io/) to deploy th
 
 - [prerequisites](#prerequisites)
 - [local development](#local-development)
+  - [export requirements](#export-requirements)
   - [dag integration tests](#dag-integration-tests)
 - [preparation](#preparation)
 - [setup](#setup)
@@ -31,6 +32,13 @@ In this repo, we are using the [Kubernetes](https://kubernetes.io/) to deploy th
 
 ```sh
 pdm install
+```
+
+### export requirements
+
+```sh
+pdm lock -S inherit_metadata
+pdm export -f requirements > requirements.txt
 ```
 
 ### dag integration tests

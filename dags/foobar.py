@@ -1,6 +1,6 @@
 from airflow import DAG
 from airflow.operators.bash import BashOperator
-from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
+from airflow.providers.cncf.kubernetes.operators.pod import KubernetesPodOperator
 from datetime import datetime
 
 AIRFLOW_K8S_NAMESPACE = "airflow"
